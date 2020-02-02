@@ -1,9 +1,21 @@
-<div>
-    <span><input type="button" value="|||"/></span>
-    <span>Trivial</span>
-    <span><%= link_to 'New Note', new_note_path %></span>
-    <span>Logout</span>
-</div>
+<nav class="uk-navbar uk-navbar-container uk-margin" uk-navbar>
+    <div class="uk-navbar-left">
+        <a class="uk-navbar-toggle">
+            <span uk-navbar-toggle-icon></span> <span class="uk-margin-small-left">Menu</span>
+        </a>
+        <div class="uk-navbar-dropdown" uk-dropdown>
+            <ul class="uk-nav uk-navbar-dropdown-nav">
+                <li class="uk-active"><a href="#">Active</a></li>
+                <li><a href="#">Item</a></li>
+                <li class="uk-nav-header">Header</li>
+                <li><a href="#">Item</a></li>
+                <li><a href="#">Item</a></li>
+                <li class="uk-nav-divider"></li>
+                <li><a href="#">Item</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
 <% for note in @note %>
     <div uk-grid>
