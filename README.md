@@ -1,3 +1,5 @@
+[![BCH compliance](https://bettercodehub.com/edge/badge/dwakel/trivial-note?branch=master)](https://bettercodehub.com/)
+
 # README
 
 This README would normally document whatever steps are necessary to get the
