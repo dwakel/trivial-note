@@ -1,0 +1,52 @@
+<h1>Edit Note</h1>
+
+<%= form_with(model: @note, local: true) do |form| %>
+    <p>
+        <%= form.label :title %>
+        <%= form.text_field :title %>
+    </p>
+
+
+<% @note.items.each do |item| %>
+<%= form_with do |f| %>
+  <span>
+    
+    <%= check_box_tag "", nil, item.is_checked %>
+  </span>
+ 
+  <span>
+    <%= item.memo %>
+  </span>
+<% end %>
+<% end %>
+
+
+    <p>
+        <%= form.label :color %>
+        <%= form.text_field :color %>
+    </p>
+
+    
+
+    <p>
+        <%= form.submit %>
+    </p>
+
+<% end %>
+
+
+
+    <%= form_with(model: [ @note, @note.items.build ], local: true) do |form| %>
+        <p>
+            <span>
+                <%= form.check_box :is_checked %>
+            </span>
+            <span>
+                <%= form.text_field :memo %>
+            </span>
+        </p>
+        
+        <p>
+            <%= form.submit %>
+        </p>
+    <% end %>

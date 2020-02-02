@@ -1,0 +1,178 @@
+<div>
+    <span><input type="button" value="|||"/></span>
+    <span>Trivial</span>
+    <span><%= link_to 'New Note', new_note_path %></span>
+    <span>Logout</span>
+</div>
+
+<% for note in @note %>
+    <div uk-grid>
+        
+        <div style="background-color: <%= note.color %>;" class="uk-card uk-card-default uk-card-small uk-width-1-2@m uk-card-hover">
+            <button style="font-family:Segoe MDL2 Assets; color: #000000; border: none;"
+                    class="uk-button uk-button-default uk-card uk-card-badge"
+                    type="button">
+                    &#xe10C;
+            </button>
+            <div uk-dropdown="animation: uk-animation-slide-top-small; duration: 1000">
+                <ul class="uk-nav uk-dropdown-nav">
+                    <!-- <li class="uk-active"><a href="#">Active</a></li> -->
+                    <li><a href="#">Edit</a></li>
+                    <!-- <li class="uk-nav-header">Header</li> -->
+                    <li><%= link_to 'Archive', note_path(note.id) %></li>
+
+                    <li><%= link_to 'Delete', note_path(note.id),
+                            method: :delete,
+                            data: { confirm: 'Are you sure?' } %></li>
+
+                    <li class="uk-nav-divider"></li>
+
+                    <li>
+                        <%= form_with local: true do |form| %>
+                            <div class="container">
+                                <!-- <ul> -->
+                                    <span class="numbers one">
+                                        <%= form.radio_button('color', '#fadcd9') %>
+                                        <div class="check"></div>
+                                    </span>
+                                    <span class="numbers two">
+                                        <%= form.radio_button('color', '#feb06a') %>
+                                        <div class="check"></div>
+                                    </span>
+                                    <span class="numbers three">
+                                        <%= form.radio_button('color', '#18a558') %>
+                                        <div class="check"></div>
+                                    </span>   
+                                    <span class="numbers four">
+                                        <%= form.radio_button('color', '#0074B7') %>
+                                        <div class="check"></div>
+                                    </span>   
+                                    <span class="numbers five">
+                                        <%= form.radio_button('color', '#774A62') %>
+                                        <div class="check"></div>
+                                    </span>   
+                                    <span class="numbers six">
+                                        <%= form.radio_button('color', 'no_color') %>
+                                        <div class="check"></div>
+                                    </span>
+                                <!-- </ul> -->
+                            </div>
+                        <% end %>
+                    </li>
+                </ul>
+            </div>
+            <div class="uk-card-header">
+                <div class="uk-grid-small uk-flex-middle" uk-grid>
+                    <!-- <div class="uk-width-auto">
+                        <img class="uk-border-circle" width="40" height="40" src="images/avatar.jpg">
+                    </div> -->
+                    <div class="uk-width-expand">
+                        <h3 class="uk-card-title uk-margin-remove-bottom"><%= note.title %></h3>
+                        <p class="uk-text-meta uk-margin-remove-top"><time datetime="2016-04-01T19:00"><%= note.updated_at %></time></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="uk-card-body">
+                <% for item in note.items %>
+                    <% if (!item.is_checked) %>
+                        <p>
+                            <span><%= check_box_tag "", nil, item.is_checked, class: "uk-checkbox" %></span>
+                            <span><%= item.memo %></span>
+                        </p>
+                    <% end %>
+                <% end %>
+            </div>
+
+            <div class="uk-card-footer">
+                <% for item in note.items %>
+                    <% if (item.is_checked) %>
+                        <p>
+                            <span><%= check_box_tag "", nil, item.is_checked, class: "uk-checkbox" %></span>
+                            <span><%= item.memo %></span>
+                        </p>
+                    <% end %>
+                <% end %>
+            </div>
+    
+        </div>
+        
+    </div>
+
+<% end %>
+
+<style>
+.container {
+    display: inline-flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.numbers {
+  color: #AAAAAA;
+  display: block;
+  position: relative;
+  float: left;
+  width: 2em;
+  height: 1.5em;
+}
+span input[type=radio] {
+    position: absolute;
+    opacity: 0%;
+}
+
+.one .check {
+    background: #fadcd9;
+}
+.two .check {
+    background: #feb06a;
+   
+}
+.three .check {
+    background: #18a558;
+    
+}
+.four .check {
+    background: #0074B7;
+    
+}
+.five .check {
+    background: #774A62;
+}
+.six .check {
+    background: none;
+    border: solid 1px;
+}
+span .check {
+    display: block;
+    position: absolute;
+    border-radius: 100%;
+    height: 22px;
+    width: 22px;
+	z-index: -5;
+}
+span :hover .check {
+    border: 1px solid #FFFFFF
+}
+span .check::before {
+    display: block;
+    position: absolute;
+	content: '';
+    border-radius: 100%;
+    height: 22px;
+    width: 22px;
+    top: 0px;
+	left: 0px;
+	text-align: center;
+	line-height: 22px;
+    margin: auto;
+/* 	transition: background 0.25s linear;
+	-webkit-transition: background 0.25s linear; */
+}
+input[type=radio]:checked ~ .check::before{
+/*   background: #0DFF92; */
+	content:'\1F5F8';
+	color: #000000;
+	font-size: 1.1em;
+}
+</style>

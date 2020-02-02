@@ -1,0 +1,19 @@
+<h1>Listing Notes</h1>
+
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Color</th>
+        <th></th>
+    </tr>
+
+    <% for note in @note %>
+        <tr>
+            <td><%= note.title %></td>
+            <td><%= note.color %></td>
+            <td><%= link_to 'Show', note_path(note) %></td>
+            <td><%= link_to 'Edit', edit_note_path(note) %></td>
+
+        </tr>
+    <% end %>
+</table>

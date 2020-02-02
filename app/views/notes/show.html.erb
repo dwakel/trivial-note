@@ -1,0 +1,25 @@
+<p>
+    <strong>Title:</strong>
+    <%= @note.title %>
+</p>
+
+<p>
+    <strong>Color</strong>
+    <%= @note.color %>
+</p>
+
+<h2>Items</h2>
+<% @note.items.each do |item| %>
+  <p>
+    
+    <%= check_box_tag (item.is_checked) %>
+  </p>
+ 
+  <p>
+    <%= item.memo %>
+  </p>
+<% end %>
+
+
+<td><%= link_to 'Edit', edit_note_path(@note) %></td>
+<td><%= link_to 'Back', note_path %></td>
