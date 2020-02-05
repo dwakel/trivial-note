@@ -25,12 +25,18 @@ class NotesController < ApplicationController
     end
 
     def update
-        puts "############################################################################################################################"
+        puts "#####################################################"
+        _note_id = params[:id]
+        puts _note_id
+        puts "#####################################################"
+
         @note = Note.find(params[:id])
+        @note.items.update(item_params)
+        @note.update(note_params)
 
-        @note = Note.update(note_params)
+        
 
-        redirect_to dashboard_index_path(@note)
+        redirect_to dashboard_index_path
         # if @note.update(note_params)
         #     redirect_to dashboard_index_path
         # else
@@ -47,13 +53,13 @@ class NotesController < ApplicationController
 
     private
     def note_params
-        params.require(:note).permit(:title)
+        params.permit(:title)#, items_attributes: [:is_checked, :memo])
     end
     def update_params
         params.require(:note, :item).permit(:title, :color, :is_checked, :memo)
     end
 
     def item_params
-        params.require(:item).permit(:is_checked, :memo)
+        params.permit(items_attributes: [:is_checked, :memo])
     end
 end

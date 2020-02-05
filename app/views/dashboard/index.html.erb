@@ -90,7 +90,7 @@
                     </li>
                 </ul>
             </div>
-            <%= form_with model: note, local: true do |f| %>
+            <%= form_for note do |f| %>
                 <div class="uk-card-header">
                     <div class="uk-grid-small uk-flex-middle" uk-grid>
                         <!-- <div class="uk-width-auto">
@@ -102,30 +102,31 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- <div class="uk-card-body">
-                    <% for item in note.items %>
-                        <% if (!item.is_checked) %>
-                            <p class="memo">
-                                <span><input name="is_checked" type="checkbox" class="uk-checkbox" <%= item.is_checked ? "checked" : "" %> /></span>
-                                <span><input name="memo" type="text" class="uk-text" value="<%= item.memo %>" ></span>
-                                <button class="uk-close close-btn" type="button" uk-close></button>                        
-                            </p>
+                <%= f.fields_for :item do |items| %> 
+                    <div class="uk-card-body">
+                        <% for item in note.items %>
+                            <% if (!item.is_checked) %>
+                                <p class="memo">
+                                    <span><input name="is_checked[]" type="checkbox" class="uk-checkbox" <%= item.is_checked ? "checked" : "" %> /></span>
+                                    <span><input name="memo[]" type="text" class="uk-text" value="<%= item.memo %>" ></span>
+                                    <button class="uk-close close-btn" type="button" uk-close></button>                        
+                                </p>
+                            <% end %>
                         <% end %>
-                    <% end %>
-                </div>
+                    </div>
 
-                <div class="uk-card-footer">
-                    <% for item in note.items %>
-                        <% if (item.is_checked) %>
-                            <p class="memo">
-                                <span><input name="is_checked" type="checkbox" class="uk-checkbox" <%= item.is_checked ? "checked" : "" %> /></span>
-                                <span><input name="memo" type="text" value="<%= item.memo %>" ></span>
-                                <button class="uk-close close-btn" type="button" uk-close></button>
-                            </p>
+                    <div class="uk-card-footer">
+                        <% for item in note.items %>
+                            <% if (item.is_checked) %>
+                                <p class="memo">
+                                    <span><input name="is_checked[]" type="checkbox" class="uk-checkbox" <%= item.is_checked ? "checked" : "" %> /></span>
+                                    <span><input name="memo[]" type="text" value="<%= item.memo %>" ></span>
+                                    <button class="uk-close close-btn" type="button" uk-close></button>
+                                </p>
+                            <% end %>
                         <% end %>
-                    <% end %>
-                </div> -->
+                    </div>
+                <% end %>
                 <div><%= f.submit %></div>
                 
             <% end %>
