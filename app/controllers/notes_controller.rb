@@ -25,13 +25,17 @@ class NotesController < ApplicationController
     end
 
     def update
+        puts "############################################################################################################################"
         @note = Note.find(params[:id])
 
-        if @note.update(note_params)
-            redirect_to dashboard_index_path
-        else
-            render 'edit'
-        end
+        @note = Note.update(note_params)
+
+        redirect_to dashboard_index_path(@note)
+        # if @note.update(note_params)
+        #     redirect_to dashboard_index_path
+        # else
+        #     render 'edit'
+        # end
     end
 
     def destroy
@@ -43,6 +47,13 @@ class NotesController < ApplicationController
 
     private
     def note_params
-        params.require(:note).permit(:title, :color)
+        params.require(:note).permit(:title)
+    end
+    def update_params
+        params.require(:note, :item).permit(:title, :color, :is_checked, :memo)
+    end
+
+    def item_params
+        params.require(:item).permit(:is_checked, :memo)
     end
 end

@@ -4,13 +4,18 @@ class ItemsController < ApplicationController
         @note = Note.find(params[:note_id])
         @item = @note.items.create(item_params)
 
-        # puts '########'
-
-        # puts @item
-
-        # puts '########'
-        # dont redirect 
+        
         redirect_to edit_note_path(@note)
+    end
+
+    def update
+        puts "############################################################################################################################"
+
+        @note = Note.find(params[:note_id])
+        @item = @note.items.update(item_params)
+
+        
+        redirect_to dashboard_path(@note)
     end
 
     def destroy

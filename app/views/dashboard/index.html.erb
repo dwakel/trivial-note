@@ -5,15 +5,32 @@
         </a>
         <div class="uk-navbar-dropdown" uk-dropdown>
             <ul class="uk-nav uk-navbar-dropdown-nav">
-                <li class="uk-active"><a href="#">Active</a></li>
-                <li><a href="#">Item</a></li>
-                <li class="uk-nav-header">Header</li>
-                <li><a href="#">Item</a></li>
-                <li><a href="#">Item</a></li>
+                <li><a href="#">Archive</a></li>
+                <li><a href="#">Donate <span style="font-family:Segoe MDL2 Assets;">&#xE0A5;</span></a></li>
+                <li><a href="#">Setting</a></li>
                 <li class="uk-nav-divider"></li>
-                <li><a href="#">Item</a></li>
+                <li><a href="#">Logout</a></li>
             </ul>
         </div>
+        <button class="button-props uk-button uk-button-default"
+                    type="button"
+                    name="New">
+                    &#xE109;
+        </button>
+        <%
+=begin%>
+ <button class="button-props uk-button uk-button-default"
+                    type="button"
+                    name="SelectAll">
+                    &#xE133;
+        </button> 
+<%
+=end%>
+        <a class="button-props uk-button uk-button-default"
+                    type="button"
+                    href="/">
+                    &#xE149;
+        </a>
     </div>
 </nav>
 
@@ -73,39 +90,45 @@
                     </li>
                 </ul>
             </div>
-            <div class="uk-card-header">
-                <div class="uk-grid-small uk-flex-middle" uk-grid>
-                    <!-- <div class="uk-width-auto">
-                        <img class="uk-border-circle" width="40" height="40" src="images/avatar.jpg">
-                    </div> -->
-                    <div class="uk-width-expand">
-                        <h3 class="uk-card-title uk-margin-remove-bottom"><%= note.title %></h3>
-                        <p class="uk-text-meta uk-margin-remove-top"><time datetime="2016-04-01T19:00"><%= note.updated_at %></time></p>
+            <%= form_with model: note, local: true do |f| %>
+                <div class="uk-card-header">
+                    <div class="uk-grid-small uk-flex-middle" uk-grid>
+                        <!-- <div class="uk-width-auto">
+                            <img class="uk-border-circle" width="40" height="40" src="images/avatar.jpg">
+                        </div> -->
+                        <div class="uk-width-expand">
+                            <h3 class="uk-card-title uk-margin-remove-bottom"><input name="title" value=<%= note.title %> /></h3>
+                            <p class="uk-text-meta uk-margin-remove-top"><time datetime="2016-04-01T19:00"><%= note.updated_at %></time></p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="uk-card-body">
-                <% for item in note.items %>
-                    <% if (!item.is_checked) %>
-                        <p>
-                            <span><%= check_box_tag "", nil, item.is_checked, class: "uk-checkbox" %></span>
-                            <span><%= item.memo %></span>
-                        </p>
+                <!-- <div class="uk-card-body">
+                    <% for item in note.items %>
+                        <% if (!item.is_checked) %>
+                            <p class="memo">
+                                <span><input name="is_checked" type="checkbox" class="uk-checkbox" <%= item.is_checked ? "checked" : "" %> /></span>
+                                <span><input name="memo" type="text" class="uk-text" value="<%= item.memo %>" ></span>
+                                <button class="uk-close close-btn" type="button" uk-close></button>                        
+                            </p>
+                        <% end %>
                     <% end %>
-                <% end %>
-            </div>
+                </div>
 
-            <div class="uk-card-footer">
-                <% for item in note.items %>
-                    <% if (item.is_checked) %>
-                        <p>
-                            <span><%= check_box_tag "", nil, item.is_checked, class: "uk-checkbox" %></span>
-                            <span><%= item.memo %></span>
-                        </p>
+                <div class="uk-card-footer">
+                    <% for item in note.items %>
+                        <% if (item.is_checked) %>
+                            <p class="memo">
+                                <span><input name="is_checked" type="checkbox" class="uk-checkbox" <%= item.is_checked ? "checked" : "" %> /></span>
+                                <span><input name="memo" type="text" value="<%= item.memo %>" ></span>
+                                <button class="uk-close close-btn" type="button" uk-close></button>
+                            </p>
+                        <% end %>
                     <% end %>
-                <% end %>
-            </div>
+                </div> -->
+                <div><%= f.submit %></div>
+                
+            <% end %>
     
         </div>
         
@@ -119,6 +142,26 @@
     list-style: none;
     margin: 0;
     padding: 0;
+}
+.close-btn {
+    float: right;
+    opacity: 30%;
+}
+.close-btn :hover {
+    opacity: 100%;
+    color: #FF0000;
+}
+.memo {
+    /* height: 2em;
+    background-color: none; */
+}
+.memo :hover {
+    /* background-color: blue; */
+}
+.button-props {
+    font-family:Segoe MDL2 Assets;
+    color: #000000;
+    border: none;
 }
 .numbers {
   color: #AAAAAA;
@@ -187,4 +230,5 @@ input[type=radio]:checked ~ .check::before{
 	color: #000000;
 	font-size: 1.1em;
 }
+
 </style>
